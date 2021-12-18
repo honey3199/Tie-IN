@@ -13,20 +13,19 @@
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/main_menu" />
+        android:layout_gravity="start" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:contentInsetLeft="0dp">
+        android:layout_height="wrap_content"
+        android:contentInsetLeft="0dp"
+        android:gravity="top|start">
 
         <include
             layout="@layout/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="?actionBarSize" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.fragment.app.FragmentContainerView
