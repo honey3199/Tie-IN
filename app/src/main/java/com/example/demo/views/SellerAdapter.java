@@ -6,12 +6,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.demo.R;
 import com.example.demo.room.model.Vendor;
 
@@ -40,6 +40,11 @@ public class SellerAdapter extends RecyclerView.Adapter<SellerAdapter.ViewHolder
         holder.tvName.setText(vendor.getShop());
         holder.tvAddress.setText(vendor.getAddress());
         holder.rbRating.setRating(vendor.getRating());
+        Glide.with(holder.layout.getContext())
+                .load(vendor.getLogo())
+                .placeholder(R.drawable.placeholder)
+                .centerCrop()
+                .into(holder.ivLogo);
         holder.layout.setOnClickListener(view -> {
             vendorCellClickListener.vendorClicked(vendor);
         });
