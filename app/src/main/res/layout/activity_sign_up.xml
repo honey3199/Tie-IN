@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".SignUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/create_an_account_title"
@@ -147,12 +148,12 @@
             android:layout_marginStart="@dimen/margin_30"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_30"
             android:background="@drawable/button_background"
             android:gravity="center"
             android:padding="@dimen/margin_10"
             android:text="@string/sign_up"
             android:textColor="@color/white"
-            android:layout_marginBottom="@dimen/margin_30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_email" />
@@ -161,16 +162,16 @@
             android:id="@+id/et_otp"
             android:layout_width="@dimen/margin_0"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24"
             android:layout_marginTop="@dimen/margin_40"
+            android:layout_marginEnd="@dimen/margin_24"
             android:background="@drawable/bg_edit_text"
             android:hint="enter OTP, send to your number"
             android:padding="@dimen/margin_10"
-            android:layout_marginStart="@dimen/margin_24"
-            android:layout_marginEnd="@dimen/margin_24"
             android:textColor="@color/black"
-            android:visibility="gone"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/test_size_12"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/et_phone"
             app:layout_constraintStart_toStartOf="@id/et_phone"
             app:layout_constraintTop_toBottomOf="@id/btn_signup" />
@@ -182,13 +183,13 @@
             android:layout_marginStart="@dimen/margin_30"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_30"
             android:background="@drawable/button_background"
             android:gravity="center"
-            android:visibility="gone"
             android:padding="@dimen/margin_10"
             android:text="Verify Otp"
             android:textColor="@color/white"
-            android:layout_marginBottom="@dimen/margin_30"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -198,12 +199,12 @@
             android:id="@+id/tv_click_to_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account Click to SignIn"
-            android:textSize="14sp"
             android:layout_marginTop="10dp"
+            android:text="Already have an account Click to SignIn"
             android:textColor="@color/blue"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_verify_otp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.demo.navigation.NavigationFragment;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.room.model.User;
+import com.example.demo.storage.LocalStorage;
 import com.example.demo.views.SellerListFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -21,11 +25,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationFragmen
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    TextView navigationHeaderUserName;
+    UserRepository userRepository;
+    LocalStorage localStorage;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        localStorage = new LocalStorage(this.getApplication());
+        userRepository = new UserRepository(this);
+        user = userRepository.getUser(localStorage.getPhone());
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, SellerListFragment.newInstance()).commit();
@@ -50,6 +62,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationFragmen
         fragmentManager.beginTransaction()
                 .add(R.id.navigation_view, navigationFragment)
                 .commit();
+
+        /*navigationHeaderUserName = navigationFragment.getView().findViewById(R.id.tv_name);
+        navigationHeaderUserName.setText(user.getName());*/
 
         /*ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, , toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);

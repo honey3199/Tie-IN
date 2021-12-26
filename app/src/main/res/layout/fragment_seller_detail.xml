@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".views.SellerDetailFragment">
 
     <TextView
@@ -174,9 +175,9 @@
                 android:id="@+id/iv_call"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:autoLink="phone"
                 android:background="@drawable/bg_icon"
                 android:padding="@dimen/margin_10"
-                android:autoLink="phone"
                 android:src="@drawable/ic_call"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

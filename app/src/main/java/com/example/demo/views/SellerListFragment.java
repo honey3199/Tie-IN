@@ -9,15 +9,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.demo.R;
 import com.example.demo.repository.VendorRepository;
 import com.example.demo.room.model.Vendor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SellerListFragment extends Fragment implements SellerAdapter.VendorCellClickListener {
@@ -25,6 +30,8 @@ public class SellerListFragment extends Fragment implements SellerAdapter.Vendor
     RecyclerView rvSellersList;
     List<Vendor> vendors;
     VendorRepository vendorRepository;
+    EditText etSearch;
+    ImageView ivSearch;
 
     public static SellerListFragment newInstance() {
         return new SellerListFragment();
@@ -46,6 +53,9 @@ public class SellerListFragment extends Fragment implements SellerAdapter.Vendor
             }
             return false;
         });
+
+        etSearch = view.findViewById(R.id.et_search);
+        ivSearch = view.findViewById(R.id.iv_search);
         return view;
     }
 
@@ -67,9 +77,42 @@ public class SellerListFragment extends Fragment implements SellerAdapter.Vendor
         vendorRepository = new VendorRepository(requireActivity());
         vendors = vendorRepository.getVendors();
 
-        rvSellersList.setHasFixedSize(true);
+        //rvSellersList.setHasFixedSize(true);
         rvSellersList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rvSellersList.setAdapter(new SellerAdapter(vendors, this));
+
+        ivSearch.setOnClickListener(v -> {
+            List<Vendor> matchedVendors = new ArrayList<>();
+            for (Vendor vendor : vendors) {
+                if (vendor.getProductType().contains(etSearch.getText()))
+                    matchedVendors.add(vendor);
+            }
+            rvSellersList.setAdapter(new SellerAdapter(matchedVendors, SellerListFragment.this));
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().isEmpty())
+                    rvSellersList.setAdapter(new SellerAdapter(vendors, SellerListFragment.this));
+                else {
+                    List<Vendor> matchedVendors = new ArrayList<>();
+                    for (Vendor vendor : vendors) {
+                        if (vendor.getProductType().toLowerCase().contains(etSearch.getText().toString().toLowerCase()))
+                            matchedVendors.add(vendor);
+                    }
+                    rvSellersList.setAdapter(new SellerAdapter(matchedVendors, SellerListFragment.this));
+                }
+            }
+        });
     }
 
     @Override
