@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import com.example.demo.data.Status;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.storage.LocalStorage;
 
-public class SingInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     UserRepository userRepository;
+    LocalStorage localStorage;
     Button btnSignIn;
     TextView tvClickToSignUp;
     EditText etMobileNo, etPassword;
@@ -22,7 +24,7 @@ public class SingInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sing_in);
+        setContentView(R.layout.activity_sign_in);
 
         btnSignIn = findViewById(R.id.btn_change_password);
         tvClickToSignUp = findViewById(R.id.tv_click_to_signup);
@@ -34,6 +36,8 @@ public class SingInActivity extends AppCompatActivity {
             etMobileNo.setText(bundle.getString("phone"));
 
         userRepository = new UserRepository(this);
+        localStorage = new LocalStorage(this.getApplication());
+
         btnSignIn.setOnClickListener(loginButton -> {
             if (etMobileNo.getText().toString().equals("")) {
                 Toast.makeText(this, "please enter phone number", Toast.LENGTH_LONG).show();
@@ -43,7 +47,9 @@ public class SingInActivity extends AppCompatActivity {
                 Status response = userRepository.login(etMobileNo.getText().toString(), etPassword.getText().toString());
 
                 if (response.getCode().equals(Status.SUCCESS.getCode())) {
-                    Intent i = new Intent(SingInActivity.this, HomeActivity.class);
+                    localStorage.setPhone(etMobileNo.getText().toString());
+                    localStorage.setPassword(etPassword.getText().toString());
+                    Intent i = new Intent(SignInActivity.this, HomeActivity.class);
                     startActivity(i);
                     finish();
                 } else {
@@ -53,7 +59,7 @@ public class SingInActivity extends AppCompatActivity {
         });
 
         tvClickToSignUp.setOnClickListener(v -> {
-            Intent i = new Intent(SingInActivity.this, SignUpActivity.class);
+            Intent i = new Intent(SignInActivity.this, SignUpActivity.class);
             startActivity(i);
             finish();
         });

@@ -59,6 +59,7 @@ public class ProfileFragment extends Fragment {
         localStorage = new LocalStorage(requireActivity().getApplication());
 
         user = userRepository.getUser(localStorage.getPhone());
+
         tvUserName.setText(tvUserName.getText().toString() + user.getName());
         tvUserEmail.setText(tvUserEmail.getText().toString() + user.getEmail());
         tvUserPhone.setText(tvUserPhone.getText().toString() + user.getPhone());

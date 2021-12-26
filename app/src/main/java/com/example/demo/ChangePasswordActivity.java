@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.demo.data.Status;
 import com.example.demo.repository.UserRepository;
 
 public class ChangePasswordActivity extends AppCompatActivity {
@@ -38,7 +36,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 Toast.makeText(this, "password and confirm password fields should be match.", Toast.LENGTH_LONG).show();
             } else {
                 userRepository.updatePassword(etNewPassword.getText().toString(), phone);
-                Intent i = new Intent(ChangePasswordActivity.this, SingInActivity.class);
+                Intent i = new Intent(ChangePasswordActivity.this, SignInActivity.class);
                 i.putExtra("phone", phone);
                 startActivity(i);
                 finish();

@@ -1,8 +1,9 @@
 package com.example.demo;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -10,10 +11,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.example.demo.navigation.NavigationFragment;
 import com.example.demo.views.SellerListFragment;
@@ -30,6 +27,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, SellerListFragment.newInstance()).commit();
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         toolbar = findViewById(R.id.toolbar);
@@ -38,6 +38,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationFragmen
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
 
@@ -53,10 +55,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationFragmen
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();*/
 
-        FragmentTransaction fragmentTransaction =
+        /*FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, SellerListFragment.newInstance());
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 
     @Override

@@ -8,16 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.demo.HomeActivity;
 import com.example.demo.R;
-import com.example.demo.SingInActivity;
+import com.example.demo.SignInActivity;
 import com.example.demo.views.ProfileFragment;
-import com.example.demo.views.SellerListFragment;
 
 
 public class NavigationFragment extends Fragment {
@@ -77,7 +73,7 @@ public class NavigationFragment extends Fragment {
         });
 
         tvLogout.setOnClickListener(v -> {
-            Intent i = new Intent(requireActivity(), SingInActivity.class);
+            Intent i = new Intent(requireActivity(), SignInActivity.class);
             startActivity(i);
             requireActivity().finish();
         });

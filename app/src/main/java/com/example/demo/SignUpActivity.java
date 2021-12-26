@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demo.data.Status;
 import com.example.demo.repository.UserRepository;
-import com.google.android.gms.common.api.Response;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -46,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
         tvGoToSignIn = findViewById(R.id.tv_click_to_signin);
 
         tvGoToSignIn.setOnClickListener(v -> {
-            Intent i = new Intent(SignUpActivity.this, SingInActivity.class);
+            Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
             startActivity(i);
             finish();
         });
