@@ -1,6 +1,7 @@
 package com.example.demo.room.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,11 +10,12 @@ public class User {
     @PrimaryKey
     @NonNull String phone;
     String name;
-    String profileImage;
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    byte[] profileImage;
     String email;
     String password;
 
-    public User(String phone, String name, String profileImage, String email, String password) {
+    public User(String phone, String name, byte[] profileImage, String email, String password) {
         this.phone = phone;
         this.name = name;
         this.profileImage = profileImage;
@@ -37,11 +39,11 @@ public class User {
         this.name = name;
     }
 
-    public String getProfileImage() {
+    public byte[] getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(String profileImage) {
+    public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
     }
 

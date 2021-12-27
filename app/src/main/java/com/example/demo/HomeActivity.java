@@ -28,7 +28,6 @@ public class HomeActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    TextView navigationHeaderUserName;
     UserRepository userRepository;
     LocalStorage localStorage;
     User user;
@@ -66,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
 
         headerView.setOnClickListener(v -> {
             drawerLayout.close();
-            getSupportFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction().addToBackStack("profile_page")
                     .replace(R.id.fragment_container, ProfileFragment.newInstance()).commit();
         });
 
@@ -82,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                     Toast.makeText(this, "About Us Clicked...!!!", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.item_contact_us:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction()
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction().addToBackStack("contact_us_page")
                             .replace(R.id.fragment_container, ContactUsFragment.newInstance());
                     fragmentTransaction.commit();
                     break;

@@ -1,5 +1,6 @@
 package com.example.demo.room.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -18,6 +19,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE phone = :phone")
     User getUser(String phone);
 
+    @Query("SELECT * FROM user WHERE phone = :phone")
+    LiveData<User> getUserLD(String phone);
+
     @Query("UPDATE user SET name=:name where phone = :phone")
     void updateUserName(String name, String phone);
 
@@ -26,4 +30,7 @@ public interface UserDao {
 
     @Query("UPDATE user SET password=:password where phone = :phone")
     void updatePassword(String password, String phone);
+
+    @Query("UPDATE user SET profileImage=:image where phone = :phone")
+    void updateProfileImage(byte[] image, String phone);
 }

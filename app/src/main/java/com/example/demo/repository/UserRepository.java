@@ -3,6 +3,8 @@ package com.example.demo.repository;
 import android.content.Context;
 import android.telephony.SmsManager;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.demo.data.Status;
 import com.example.demo.room.dao.UserDao;
 import com.example.demo.room.model.User;
@@ -29,6 +31,10 @@ public class UserRepository extends Repository {
         return userDao.getUser(phone);
     }
 
+    public LiveData<User> getUserLD(String phone) {
+        return userDao.getUserLD(phone);
+    }
+
     public String register(String phone, String name, String email) {
         User user = userDao.getUser(phone);
         if (user != null)
@@ -49,5 +55,9 @@ public class UserRepository extends Repository {
 
     public void updateUserEmail(String email, String phone) {
         userDao.updateUserEmail(email, phone);
+    }
+
+    public void updateProfileImage(byte[] byteArray, String phone) {
+        userDao.updateProfileImage(byteArray, phone);
     }
 }
