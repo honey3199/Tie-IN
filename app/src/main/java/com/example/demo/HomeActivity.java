@@ -3,8 +3,10 @@ package com.example.demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +60,16 @@ public class HomeActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
 
+        View headerView = navigationView.getHeaderView(0);
+        TextView tvUserName = headerView.findViewById(R.id.tv_user_profile);
+        tvUserName.setText(user.getName());
+
+        headerView.setOnClickListener(v -> {
+            drawerLayout.close();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, ProfileFragment.newInstance()).commit();
+        });
+
         navigationView.setNavigationItemSelectedListener(item -> {
             FragmentTransaction fragmentTransaction;
             switch (item.getItemId()) {
@@ -67,9 +79,7 @@ public class HomeActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                     break;
                 case R.id.item_about_us:
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, ProfileFragment.newInstance());
-                    fragmentTransaction.commit();
+                    Toast.makeText(this, "About Us Clicked...!!!", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.item_contact_us:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction()

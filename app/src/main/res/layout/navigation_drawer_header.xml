@@ -24,19 +24,19 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:text="@string/welcome"
-        android:textColor="@color/gray"
+        android:textColor="@color/light_black"
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/iv_profile_pic"
         app:layout_constraintTop_toTopOf="@+id/iv_profile_pic" />
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_user_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textColor="@color/blue"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

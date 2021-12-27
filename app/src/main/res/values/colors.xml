@@ -13,4 +13,5 @@
     <color name="navigationItemsTextColor">#4A4A4A</color>
     <color name="gray">#80959d</color>
     <color name="colorBackground">#eaefef</color>
+    <color name="light_black">#90000000</color>
 </resources>
