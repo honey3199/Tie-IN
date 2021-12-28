@@ -81,8 +81,9 @@ public class ProfileFragment extends Fragment {
     TextView tvUserName, tvUserEmail, tvUserPhone;
     ImageView editEmail, editName, icCamera, ivProfilePhoto;
 
-    public static final String KEY_User_Document1 = "doc1";
-    private String Document_img1 = "";
+    int TAKE_PHOTO_CODE = 0;
+    public static int count = 0;
+    String dir;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -109,6 +110,10 @@ public class ProfileFragment extends Fragment {
         localStorage = new LocalStorage(requireActivity().getApplication());
 
         userRepository.getUserLD(localStorage.getPhone()).observe(getViewLifecycleOwner(), user -> initializeUser(user));
+
+        dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
+        File newdir = new File(dir);
+        newdir.mkdirs();
 
         icCamera.setOnClickListener(v -> selectImage());
 
@@ -178,10 +183,26 @@ public class ProfileFragment extends Fragment {
         builder.setTitle("Add Photo!");
         builder.setItems(options, (dialog, item) -> {
             if (options[item].equals("Take Photo")) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                count++;
+                String file = dir+count+".jpg";
+                File newfile = new File(file);
+                try {
+                    newfile.createNewFile();
+                }
+                catch (IOException e)
+                {
+                }
+
+                Uri outputFileUri = Uri.fromFile(newfile);
+
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+
+                startActivityForResult(cameraIntent, 1);
+                /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 1);*/
             } else if (options[item].equals("Choose from Gallery")) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 2);
@@ -197,7 +218,7 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
-                // TODO: 28/12/21 camera open nd take image
+                Toast.makeText(requireContext(), "Pic saved", Toast.LENGTH_LONG).show();
             } else if (requestCode == 2) {
                 if (data != null) {
                     try {

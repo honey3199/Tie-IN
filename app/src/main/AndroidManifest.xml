@@ -18,12 +18,15 @@
         android:theme="@style/Theme.Demo">
         <activity
             android:name=".ChangePasswordActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +36,7 @@
         </activity>
         <activity
             android:name=".HomeActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
