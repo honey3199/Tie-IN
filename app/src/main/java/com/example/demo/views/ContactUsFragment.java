@@ -41,8 +41,7 @@ public class ContactUsFragment extends Fragment {
     Button sendMail;
 
     public static ContactUsFragment newInstance() {
-        ContactUsFragment fragment = new ContactUsFragment();
-        return fragment;
+        return new ContactUsFragment();
     }
 
     @Override
@@ -72,35 +71,8 @@ public class ContactUsFragment extends Fragment {
                 return;
             }
 
-            /*Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
-
-            Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication("tuturuhoney@gmail.com", "hello12345678*");
-                        }
-                    });
-            try {
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(etEmail.getText().toString()));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse("shivanshuryu@gmail.com"));
-                message.setSubject("Testing Subject");
-                message.setText("Dear Mail Crawler,"
-                        + "\n\n No spam to my email, please!");
-                Transport.send(message);
-                System.out.println("Done");
-
-            } catch (MessagingException e) {
-                throw new RuntimeException(e);
-            }*/
-
             Intent intent = new Intent(Intent.ACTION_SEND);
-            String[] recipients = {"shivanshuryu@gmail.com"};
+            String[] recipients = {"prekshasheth1998@gmail.com"};
             intent.putExtra(Intent.EXTRA_EMAIL, recipients);
             intent.setType("text/html");
             intent.setPackage("com.google.android.gm");
@@ -112,8 +84,5 @@ public class ContactUsFragment extends Fragment {
                 Toast.makeText(requireActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);*/
     }
 }

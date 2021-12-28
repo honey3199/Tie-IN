@@ -111,6 +111,14 @@ public class SignUpActivity extends AppCompatActivity {
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
+            edtPhone.setEnabled(false);
+            edtPhone.setTextColor(getResources().getColor(R.color.hint_color));
+            etName.setEnabled(false);
+            etName.setTextColor(getResources().getColor(R.color.hint_color));
+            etEmail.setEnabled(false);
+            etEmail.setTextColor(getResources().getColor(R.color.hint_color));
+            generateOTPBtn.setEnabled(false);
+            generateOTPBtn.getBackground().setAlpha(90);
             verificationId = s;
         }
 

@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/margin_10"
             android:layout_marginEnd="@dimen/margin_10"
             android:background="@drawable/bg_edit_text"
-            android:hint="Search for Sellers..."
+            android:hint="Search for Products..."
             android:padding="@dimen/margin_10"
             android:textColor="@color/black"
             android:textColorHint="@color/hint_color"

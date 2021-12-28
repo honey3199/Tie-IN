@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -81,10 +82,6 @@ public class ProfileFragment extends Fragment {
     TextView tvUserName, tvUserEmail, tvUserPhone;
     ImageView editEmail, editName, icCamera, ivProfilePhoto;
 
-    int TAKE_PHOTO_CODE = 0;
-    public static int count = 0;
-    String dir;
-
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
     }
@@ -110,10 +107,6 @@ public class ProfileFragment extends Fragment {
         localStorage = new LocalStorage(requireActivity().getApplication());
 
         userRepository.getUserLD(localStorage.getPhone()).observe(getViewLifecycleOwner(), user -> initializeUser(user));
-
-        dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/picFolder/";
-        File newdir = new File(dir);
-        newdir.mkdirs();
 
         icCamera.setOnClickListener(v -> selectImage());
 
@@ -180,29 +173,15 @@ public class ProfileFragment extends Fragment {
     private void selectImage() {
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Add Photo!");
+        builder.setTitle("Upload Photo!");
         builder.setItems(options, (dialog, item) -> {
             if (options[item].equals("Take Photo")) {
-                count++;
-                String file = dir+count+".jpg";
-                File newfile = new File(file);
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
-                    newfile.createNewFile();
+                    startActivityForResult(takePictureIntent, 1);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(requireContext(), "Something Went Wrong..!!!", Toast.LENGTH_LONG).show();
                 }
-                catch (IOException e)
-                {
-                }
-
-                Uri outputFileUri = Uri.fromFile(newfile);
-
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
-                startActivityForResult(cameraIntent, 1);
-                /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                startActivityForResult(intent, 1);*/
             } else if (options[item].equals("Choose from Gallery")) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 2);
@@ -218,7 +197,9 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
-                Toast.makeText(requireContext(), "Pic saved", Toast.LENGTH_LONG).show();
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                storeImage(imageBitmap);
             } else if (requestCode == 2) {
                 if (data != null) {
                     try {
@@ -226,7 +207,7 @@ public class ProfileFragment extends Fragment {
                         Bitmap yourSelectedImage = BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(selectedImage));
                         storeImage(yourSelectedImage);
                     } catch (IOException e) {
-                        Log.e("ProfileActivity", "The image is not loaded : $e");
+                        Log.e("ProfileActivity", "The image is not loaded : "+e);
                     }
                 }
             }
