@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.room.model.User;
 import com.example.demo.storage.LocalStorage;
+import com.example.demo.views.AboutUsFragment;
 import com.example.demo.views.ContactUsFragment;
 import com.example.demo.views.ProfileFragment;
 import com.example.demo.views.SellerListFragment;
@@ -78,7 +79,9 @@ public class HomeActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                     break;
                 case R.id.item_about_us:
-                    Toast.makeText(this, "About Us Clicked...!!!", Toast.LENGTH_LONG).show();
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction().addToBackStack("about_us_page")
+                            .replace(R.id.fragment_container, AboutUsFragment.newInstance());
+                    fragmentTransaction.commit();
                     break;
                 case R.id.item_contact_us:
                     fragmentTransaction = getSupportFragmentManager().beginTransaction().addToBackStack("contact_us_page")

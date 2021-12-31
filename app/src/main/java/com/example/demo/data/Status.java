@@ -1,7 +1,6 @@
 package com.example.demo.data;
 
 public enum Status {
-    LOADING("Loading"),
     SUCCESS("Success"),
     ERROR("Error");
 
